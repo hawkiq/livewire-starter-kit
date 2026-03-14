@@ -5,6 +5,7 @@
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+
 <head>
     @include('partials.head')
 </head>
@@ -31,42 +32,37 @@
 
                         @foreach ($section['items'] as $item)
                             @if (Sidebar::shouldRender($item))
-                                <flux:sidebar.item
-                                    :href="Sidebar::href($item)"
-                                    :current="request()->routeIs(Sidebar::currentPattern($item))"
-                                    wire:navigate
-                                >
-                                    @if (Sidebar::isFluxIcon($item))
-                                        <flux:icon :name="$item['icon']" class="w-5 h-5" />
-                                    @else
-                                        <i class="{{ $item['icon'] }} w-4 h-4"></i>
-                                    @endif
+                                <flux:sidebar.item :href="Sidebar::href($item)"
+                                    :current="request()->routeIs(Sidebar::currentPattern($item))" wire:navigate>
 
-                                    {{ __($item['text']) }}
+                                    <span class="flex items-center gap-2">
+                                        @if (Sidebar::isFluxIcon($item))
+                                            <flux:icon :name="$item['icon']" class="w-5 h-5" />
+                                        @else
+                                            <i class="{{ $item['icon'] }} w-4 h-4"></i>
+                                        @endif
+                                        {{ __($item['text']) }}
+                                    </span>
                                 </flux:sidebar.item>
                             @endif
                         @endforeach
 
                     </flux:sidebar.group>
 
-                {{-- SINGLE LINK --}}
+                    {{-- SINGLE LINK --}}
                 @elseif ($section['type'] === 'link')
-
                     @if (Sidebar::shouldRender($section))
-                        <flux:sidebar.item
-                            :href="Sidebar::href($section)"
-                            target="{{ $section['target'] ?? '_self' }}"
-                        >
-                            @if (Sidebar::isFluxIcon($section))
-                                <flux:icon :name="$section['icon']" class="w-5 h-5" />
-                            @else
-                                <i class="{{ $section['icon'] }} w-4 h-4"></i>
-                            @endif
-
-                            {{ __($section['text']) }}
+                        <flux:sidebar.item :href="Sidebar::href($section)" target="{{ $section['target'] ?? '_self' }}">
+                            <span class="flex items-center gap-2">
+                                @if (Sidebar::isFluxIcon($section))
+                                    <flux:icon :name="$section['icon']" class="w-5 h-5" />
+                                @else
+                                    <i class="{{ $section['icon'] }} w-4 h-4"></i>
+                                @endif
+                                {{ __($section['text']) }}
+                            </span>
                         </flux:sidebar.item>
                     @endif
-
                 @endif
 
             @endforeach
@@ -78,11 +74,7 @@
         {{-- Theme Toggle --}}
         @if (config('ui.toggle_theme', true))
             <flux:sidebar.nav>
-                <flux:sidebar.item
-                    x-data
-                    x-on:click="$flux.dark = ! $flux.dark"
-                    class="cursor-pointer"
-                >
+                <flux:sidebar.item x-data x-on:click="$flux.dark = ! $flux.dark" class="cursor-pointer">
                     <template x-if="$flux.dark">
                         <span class="flex items-center gap-2">
                             <flux:icon.sun class="text-yellow-500" />
@@ -101,10 +93,7 @@
         @endif
 
         {{-- Desktop User Menu  --}}
-        <x-desktop-user-menu
-            class="hidden lg:block"
-            :name="auth()->user()->name"
-        />
+        <x-desktop-user-menu class="hidden lg:block" :name="auth()->user()->name" />
 
     </flux:sidebar>
 
@@ -114,10 +103,7 @@
         <flux:spacer />
 
         <flux:dropdown position="top" align="end">
-            <flux:profile
-                :initials="auth()->user()->initials()"
-                icon-trailing="chevron-down"
-            />
+            <flux:profile :initials="auth()->user()->initials()" icon-trailing="chevron-down" />
 
             <flux:menu>
                 <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
@@ -128,12 +114,7 @@
 
                 <form method="POST" action="{{ route('logout') }}" class="w-full">
                     @csrf
-                    <flux:menu.item
-                        as="button"
-                        type="submit"
-                        icon="arrow-right-start-on-rectangle"
-                        class="w-full"
-                    >
+                    <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
                         {{ __('Log out') }}
                     </flux:menu.item>
                 </form>
@@ -145,4 +126,5 @@
 
     @fluxScripts
 </body>
+
 </html>
