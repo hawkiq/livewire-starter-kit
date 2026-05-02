@@ -26,6 +26,13 @@ This makes the menu:
 - Compatible with the latest Flux sidebar structure
 
 ---
+## Install
+
+```
+laravel new app-name --using=hawkiq/livewire-starter-kit
+```
+
+--- 
 
 ## 📂 Configuration
 

@@ -72,7 +72,7 @@
         <flux:spacer />
 
         {{-- Theme Toggle --}}
-        @if (config('ui.toggle_theme', true))
+        @if (config('ui.theme_toggle', true))
             <flux:sidebar.nav>
                 <flux:sidebar.item x-data x-on:click="$flux.dark = ! $flux.dark" class="cursor-pointer">
                     <template x-if="$flux.dark">
