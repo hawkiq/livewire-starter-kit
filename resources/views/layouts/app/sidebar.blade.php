@@ -124,33 +124,13 @@
 
     {{ $slot }}
 
+    @persist('toast')
+        <flux:toast.group>
+            <flux:toast />
+        </flux:toast.group>
+    @endpersist
+
     @fluxScripts
 </body>
 
-                    <form method="POST" action="{{ route('logout') }}" class="w-full">
-                        @csrf
-                        <flux:menu.item
-                            as="button"
-                            type="submit"
-                            icon="arrow-right-start-on-rectangle"
-                            class="w-full cursor-pointer"
-                            data-test="logout-button"
-                        >
-                            {{ __('Log out') }}
-                        </flux:menu.item>
-                    </form>
-                </flux:menu>
-            </flux:dropdown>
-        </flux:header>
-
-        {{ $slot }}
-
-        @persist('toast')
-            <flux:toast.group>
-                <flux:toast />
-            </flux:toast.group>
-        @endpersist
-
-        @fluxScripts
-    </body>
 </html>
