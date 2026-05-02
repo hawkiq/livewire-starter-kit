@@ -2,6 +2,7 @@
 
 use Laravel\Fortify\Actions\ConfirmTwoFactorAuthentication;
 use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
@@ -124,7 +125,8 @@ new class extends Component {
     /**
      * Get the current modal configuration state.
      */
-    public function getModalConfigProperty(): array
+    #[Computed]
+    public function modalConfig(): array
     {
         if ($this->setupComplete) {
             return [
@@ -183,7 +185,11 @@ new class extends Component {
 
             @if ($showVerificationStep)
                 <div class="space-y-6">
-                    <div class="flex flex-col items-center space-y-3 justify-center">
+                    <div
+                        class="flex flex-col items-center space-y-3 justify-center"
+                        x-data
+                        x-init="$nextTick(() => $el.querySelector('input')?.focus())"
+                    >
                         <flux:otp
                             name="code"
                             wire:model="code"
