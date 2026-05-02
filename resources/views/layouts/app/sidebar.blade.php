@@ -127,8 +127,6 @@
     @fluxScripts
 </body>
 
-<<<<<<< HEAD
-=======
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
                         <flux:menu.item
@@ -155,5 +153,4 @@
 
         @fluxScripts
     </body>
->>>>>>> 9cfc4caedc304bbc4aaf80910e04fd1a14a6d019
 </html>
